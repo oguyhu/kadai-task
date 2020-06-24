@@ -1,0 +1,24 @@
+@import b3.vertical.fieldConstructor
+
+@(taskForm: Form[TaskForm])(implicit messagesProvider: MessagesProvider, request: RequestHeader)
+
+@main("Update") {
+
+<div class="container">
+    <h1>@taskForm("title").value.get</h1>
+    <div class="row">
+        <div class="col-xs-6">
+            @b3.formCSRF(routes.UpdateTaskController.update) {
+            @b3.hidden(taskForm("id").name, taskForm("id").value.get)
+            @b3.text(taskForm("title"), '_label -> "Title")
+            @b3.text(taskForm("content"), '_label -> "Content")
+            @b3.select(taskForm("status"), options = Task.statusOptions, '_label -> "Status", '_default -> "Select an option")
+            @b3.submit('class -> "btn btn-default") {
+              Update
+            }
+            }
+        </div>
+    </div>
+</div>
+
+}

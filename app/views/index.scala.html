@@ -1,0 +1,30 @@
+@import b3.vertical.fieldConstructor
+
+@(taskSeq: Seq[Task])(implicit MessagesProvider: MessagesProvider, request: RequestHeader)
+
+@main("Tasks") {
+
+<div class="container">
+  <h1>Tasks</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th class="col-sm-2">Status</th>
+      <th class="col-sm-3">Title</th>
+      <th class="col-sm-4">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for(task <- taskSeq) {
+    <tr>
+      <td>@task.status</td>
+      <td><a href="@routes.GetTaskController.index(task.id.get)">@task.title</a></td>
+      <td>@task.content.getOrElse("")</td>
+    </tr>
+    }
+    </tbody>
+  </table>
+  <a href="@routes.CreateTaskController.index()" class="btn btn-primary">new Task</a>
+</div>
+
+}
